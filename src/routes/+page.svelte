@@ -1,64 +1,52 @@
 <script lang="ts">
+	import type { Snapshot, PageData } from './$types';
 	import {
 		TableBody,
-		TableBodyCell,
-		TableBodyRow,
+		TableBodyCell as Td,
+		TableBodyRow as Tr,
 		TableHead,
-		TableHeadCell,
+		TableHeadCell as Th,
 		TableSearch
 	} from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
-	import type { Snapshot } from './$types';
 
-	export let data;
-
+	export let data: PageData;
 	let searchTerm = '';
 
+	// Snapshot stores the searchTerm when user navigates away from this page and back
 	export const snapshot: Snapshot<string> = {
 		capture: () => searchTerm,
 		restore: (value: string) => (searchTerm = value)
 	};
 
-	$: employees = data.employees.filter((item) => {
+	$: filteredEmployees = data.employees.filter((item) => {
 		const itemValues = Object.values(item).join();
 		return itemValues.toLowerCase().includes(searchTerm);
 	});
 </script>
 
-<div>
-	<TableSearch placeholder="Search" hoverable={true} bind:inputValue={searchTerm}>
-		<TableHead>
-			<TableHeadCell>id</TableHeadCell>
-			<TableHeadCell>Full Name</TableHeadCell>
-			<TableHeadCell>Age</TableHeadCell>
-			<TableHeadCell>Department</TableHeadCell>
-			<TableHeadCell>Job Title</TableHeadCell>
-			<TableHeadCell>Salary (USD)</TableHeadCell>
-		</TableHead>
-		<TableBody>
-			{#each employees as employee}
-				<TableBodyRow on:click={() => goto(`/employees/${employee.id}`)}>
-					<TableBodyCell>
-						{employee.id}
-					</TableBodyCell>
-					<TableBodyCell>
+<TableSearch placeholder="Search" hoverable={true} bind:inputValue={searchTerm}>
+	<TableHead>
+		<Th>Full Name</Th>
+		<Th>Age</Th>
+		<Th>Department</Th>
+		<Th>Job Title</Th>
+		<Th>Salary (USD)</Th>
+	</TableHead>
+	<TableBody>
+		{#each filteredEmployees as employee}
+			<Tr on:click={() => goto(`/employees/${employee._id}`)} class="cursor-pointer">
+				<Td>
+					<a href={`/employees/${employee._id}`} class="text-black">
 						{employee.first_name}
-						{employee.last_name}
-					</TableBodyCell>
-					<TableBodyCell>
-						{employee.age}
-					</TableBodyCell>
-					<TableBodyCell>
-						{employee.department}
-					</TableBodyCell>
-					<TableBodyCell>
-						{employee.job_title}
-					</TableBodyCell>
-					<TableBodyCell>
-						{employee.salary}
-					</TableBodyCell>
-				</TableBodyRow>
-			{/each}
-		</TableBody>
-	</TableSearch>
-</div>
+						{employee.last_name}</a
+					>
+				</Td>
+				<Td>{employee.age}</Td>
+				<Td>{employee.department}</Td>
+				<Td>{employee.job_title}</Td>
+				<Td>{employee.salary}</Td>
+			</Tr>
+		{/each}
+	</TableBody>
+</TableSearch>

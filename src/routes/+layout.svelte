@@ -1,47 +1,28 @@
 <script>
 	import '../app.postcss';
 	import './styles.css';
+
+	import { page } from '$app/stores';
+	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+	$: activeUrl = $page.url.pathname;
 </script>
 
 <div class="app">
 	<main>
+		<Navbar color="none" class="md:px-0" let:hidden let:toggle>
+			<NavBrand href="/">
+				<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+					>Svelte EMS</span
+				>
+			</NavBrand>
+			<NavHamburger on:click={toggle} />
+			<NavUl {activeUrl} {hidden}>
+				<NavLi href="/">Home</NavLi>
+				<NavLi href="/employees/add">Add</NavLi>
+				<NavLi href="/stats">Stats</NavLi>
+			</NavUl>
+		</Navbar>
+
 		<slot />
 	</main>
 </div>
-
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	/* footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	} */
-</style>
