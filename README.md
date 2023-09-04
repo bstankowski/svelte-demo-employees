@@ -1,6 +1,6 @@
 This is just a playground/demo project to learn some basics of Svelte.
 
-Using [Flowbite components](https://flowbite-svelte.com/), [Tailwind](https://tailwindcss.com/), and a [MongoDB database](https://www.mongodb.com/) filled with sample data from [SlingAcademy's APIs]("https://www.slingacademy.com/article/employees-sample-data/").
+Using [Flowbite components](https://flowbite-svelte.com/), [Tailwind](https://tailwindcss.com/), and a [MongoDB database](https://www.mongodb.com/) filled with sample data from [SlingAcademy's API](https://www.slingacademy.com/article/employees-sample-data/).
 
 To try it out, import `/src/lib/employees.json` to your database, enter your Mongo DB connection string to `.env` and run:
 
