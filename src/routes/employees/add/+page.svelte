@@ -7,6 +7,10 @@
 	export let isBusy = false;
 </script>
 
+<svelte:head>
+	<title>Add an Empoyee</title>
+</svelte:head>
+
 <header class="flex justify-start">
 	<div class="mr-4">
 		<Button size="sm" outline={true} on:click={() => history.back()}>Back</Button>

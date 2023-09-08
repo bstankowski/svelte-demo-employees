@@ -7,6 +7,10 @@
 	$: activeUrl = $page.url.pathname;
 </script>
 
+<svelte:head>
+	<title>Svelte EMS</title>
+</svelte:head>
+
 <div class="app">
 	<main>
 		<Navbar color="none" class="md:px-0" let:hidden let:toggle>

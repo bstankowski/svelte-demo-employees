@@ -21,11 +21,12 @@
 
 	$: filteredEmployees = data.employees.filter((item) => {
 		const itemValues = Object.values(item).join();
-		return itemValues.toLowerCase().includes(searchTerm);
+		return itemValues.toLowerCase().includes(searchTerm.toLowerCase());
 	});
 </script>
 
-<TableSearch placeholder="Search" hoverable={true} bind:inputValue={searchTerm}>
+<h2 class="visually-hidden">All Employees</h2>
+<TableSearch placeholder="Search" hoverable={true} bind:inputValue={searchTerm} classInput={"pl-10"}>
 	<TableHead>
 		<Th>Full Name</Th>
 		<Th>Age</Th>
@@ -42,10 +43,10 @@
 						{employee.last_name}</a
 					>
 				</Td>
-				<Td>{employee.age}</Td>
+				<Td>{#if employee.age}{employee.age}{/if}</Td>
 				<Td>{employee.department}</Td>
 				<Td>{employee.job_title}</Td>
-				<Td>{employee.salary}</Td>
+				<Td>{#if employee.salary}{employee.salary}{/if}</Td>
 			</Tr>
 		{/each}
 	</TableBody>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from 'flowbite-svelte';
+	import { goto } from '$app/navigation';
 	import { TrashBinOutline } from 'flowbite-svelte-icons';
 	import { enhance } from '$app/forms';
 	import type { Employee } from '$lib/types';
@@ -34,7 +35,7 @@
 			await update();
 
 			if (result.type === 'success') {
-				history.back();
+				goto('/', { replaceState: true })
 			}
 		};
 	}}
